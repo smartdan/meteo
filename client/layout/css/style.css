@@ -1,0 +1,44 @@
+.jumbotron {
+    margin-bottom: 0px;
+    background-image: url(/images/background-sky.png);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.description{
+  font-weight: bold;
+  font-size: 20px;
+  vertical-align: bottom;
+}
+
+.location{
+  font-size: 18px;
+}
+
+.footer{
+  font-weight: bold;
+  text-align: center;
+}
+
+.td-weather{
+  font-weight: bold;
+  font-size: 9px;
+  text-align: left;
+}
+
+.date-sum{
+  font-weight: bold;
+  font-size: 10px;
+  text-align: center;
+}
+
+td{
+  text-align: center;
+}
+
+.td-icon{
+  align-content: center;
+  text-align: center;
+}
+

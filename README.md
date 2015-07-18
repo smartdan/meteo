@@ -9,7 +9,7 @@ Application developed with METEOR JS. Shows weather forecast for different citie
 <p>
 <ul>
 <li> Openweathermap API: current, daily and detailed forecasts</li>
-<li> Persistent Session </li>
+<li> Persistent Session in localeStorage</li>
 <li> Spinner for waiting templates</li>
 <li> Format date with Moment localized in ITALIAN </li>
 <li> GeoLocalization </li>

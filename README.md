@@ -3,7 +3,7 @@
 <br/>
 <h3>Description</h3>
 <p>
-Application developed with METEOR JS.
+Application developed with METEOR JS. Shows weather forecast for different cities.
 </p>
 <h3>Features</h3>
 <p>

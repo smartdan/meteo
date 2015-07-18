@@ -11,4 +11,8 @@ Application developed with METEOR JS. Shows weather forecast for different citie
 <li> Openweathermap API: current, daily and detailed forecasts</li>
 <li> Persistent Session </li>
 <li> Spinner for waiting templates</li>
+<li> Format date with Moment localized in ITALIAN </li>
+<li> GeoLocalization </li>
+<li> Bootstrap alerts </li>
+<li> Find current city from locatization coordinates</li>
 </p>

@@ -30,177 +30,164 @@
         </div>
     </div>
     <!-- Row panel -->
-    <h2>RIEPILOGO {{city}}</h2>
     {{#if loading}}
-       {{>myspin}}        
+       {{>myspin}}
     {{else}}
-        <div class="table-responsive">
-            <table class="table table-condensed">
-                <thead>
-                    <tr>{{#each dailyForecasts}}
-                        <th class="date-sum">
-                            {{ formatD d_date}}
-                        </th>{{/each}}</tr>
-                </thead>
-                <tbody>
-                    <tr>{{#each dailyForecasts}}
-                        <td>
-                            <img src="icons/{{d_icon}}.png" alt="{{d_weather}}" class="td_icon"/>
-                            <br/><span class="td-weather">{{d_temp}}°C</span>
-                            <!--<br/><span class="td-weather">n:{{d_clouds}}%</span>
-                            <br/><span class="td-weather">v:{{d_wind}}m/s</span>
-                            <br/><span class="td-weather">u:{{d_humidity}}%</span>-->
-                        </td>{{/each}}
-                    </tr>
-                </tbody>
-            </table>
-         </div>
-    {{/if}}
-    <br/>
+      <h2>RIEPILOGO {{city}}</h2>
+          <div class="table-responsive">
+              <table class="table table-condensed">
+                  <thead>
+                      <tr>{{#each dailyForecasts}}
+                          <th class="date-sum">
+                              {{ formatD d_date}}
+                          </th>{{/each}}</tr>
+                  </thead>
+                  <tbody>
+                      <tr>{{#each dailyForecasts}}
+                          <td>
+                              <img src="icons/{{d_icon}}.png" alt="{{d_weather}}" class="td_icon"/>
+                              <br/><span class="td-weather">{{d_temp}}°C</span>
+                              <!--<br/><span class="td-weather">n:{{d_clouds}}%</span>
+                              <br/><span class="td-weather">v:{{d_wind}}m/s</span>
+                              <br/><span class="td-weather">u:{{d_humidity}}%</span>-->
+                          </td>{{/each}}
+                      </tr>
+                  </tbody>
+              </table>
+           </div>
+      <br/>
 
-    <!-- Row -->
-    <div class="row">
-        <div class="col-md-12">
-            {{#if showCurrent}}
-                <button type="button" class="btn btn-info btn-lg btn-block hideCurrent" aria-label="Left Align">
-                  <span class="lead">Meteo corrente </span><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-                </button> 
-                <br/><br/>
-                   {{#if loading}}
-                       {{>myspin}}        
-                    {{else}}
-                      <ul class="list-group">                
-                        <a href="#" class="list-group-item active">
-                          {{ forecast.f_city }} 
-                        </a>
-                        <li class="list-group-item">
-                            <div class="row">                          
-                                <img src="icons/{{forecast.f_icon}}.png" alt="{{forecast.f_weather}}" class="col-xs-3 col-lg-1"	/>
-                                <span class="col-xs-9 col-lg-11 description">{{forecast.f_weather}}</span>
-                            </div>
-                            <div class="row">
-                                <span class="col-xs-3 col-lg-1"></span>
-                                <span class="col-xs-9 col-lg-11">
-                                    <span>Nuvolosità: {{forecast.f_clouds}} %</span>
-                                    <br/>
-                                    <span>Umidità: {{forecast.f_humidity}} %</span>
-                                    <br/>
-                                    <span>Temperatura: {{forecast.f_temp}} °C</span>
-                                    <br/>
-                                    <span>Vento: {{forecast.f_wind}} m/sec</span>
-                                    <br/>
-                                    <span>Massima: {{forecast.f_temp_max}} °C</span>
-                                    <br/>
-                                    <span>Minima: {{forecast.f_temp_min}} °C</span>
-                                    <br/>
-                                    <br/>
-                                </span>
-                            </div>
-                        </li>
-                       </ul>
-                    {{/if}}
-             {{else}}
-                <button type="button" class="btn btn-info btn-lg btn-block showCurrent" aria-label="Left Align">
-                  <span class="lead">Meteo corrente </span><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                </button> <br/><br/>
-            {{/if}}
-        </div>
-    </div>
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-md-12">
-            {{#if showDaily}}
-                <button type="button" class="btn btn-info btn-lg btn-block hideDaily" aria-label="Left Align">
-                  <span class="lead">Previsioni giornaliere </span><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-                </button> 
-                <br/><br/>
-                {{#if loading}}
-                    {{>myspin}}        
-                {{else}}
-                    <ul class="list-group">
-                        {{#each dailyForecasts}}
-                           <a href="#" class="list-group-item active">
-                              {{d_city}}, {{formatDay d_date}}
-                           </a>
-                           <li class="list-group-item">  
-                                <div class="row">
-                                    <img src="icons/{{d_icon}}.png" alt="{{d_weather}}" class="col-xs-3 col-lg-1" />
-                                    <span class="col-xs-9 col-lg-11 description">{{d_weather}}</span>
-                                </div>
-                                <div class="row">
-                                    <span class="col-xs-3 col-lg-1"></span>
-                                    <span class="col-xs-9 col-lg-11">
-                                        <span>Nuvolosità: {{d_clouds}} %</span>
-                                        <br/>
-                                        <span>Umidità: {{d_humidity}} %</span>
-                                        <br/>
-                                        <span>Temperatura: {{d_temp}} °C</span>
-                                        <br/>
-                                        <span>Vento: {{d_wind}} m/sec</span>
-                                        <br/>
-                                        <br/>
-                                    </span>
-                                </div>
-                            </li>
-                           {{/each}}
-                    </ul>
-                  {{/if}}
-                <br/>
-            {{else}}
-                <button type="button" class="btn btn-info btn-lg btn-block showDaily" aria-label="Left Align">
-                  <span class="lead">Previsioni giornaliere </span><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                </button> <br/><br/>
-            {{/if}}
-        </div>
-    </div>
-     <!-- /.row -->
-    <div class="row">
-        <div class="col-md-12">         
-            {{#if showHours}}              
-                <button type="button" class="btn btn-info btn-lg btn-block hideHours" aria-label="Left Align">
-                  <span class="lead">Previsioni orarie </span><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-                </button>
-                <br/><br/>
-                <ul class="list-group">
-                    {{#if loading}}
-                       {{>myspin}}        
-                    {{else}}
-                    
-                       {{#each forecasts}}
-                       <a href="#" class="list-group-item active">
-                          {{f_city}}, {{formatTime f_date}}
-                       </a>
-                       <li class="list-group-item">   
-                            <div class="row">                          
-                                <img src="icons/{{f_icon}}.png" alt="{{f_weather}}" class="col-xs-3 col-lg-1"/>
-                                <span class="col-xs-9 col-lg-11 description">{{f_weather}}</span>
-                            </div>
-                            <div class="row">
-                                <span class="col-xs-3 col-lg-1"></span>
-                                <span class="col-xs-9 col-lg-11">
-                                    <span>Nuvolosità: {{f_clouds}} %</span>
-                                    <br/>
-                                    <span>Umidità: {{f_humidity}} %</span>
-                                    <br/>
-                                    <span>Temperatura: {{f_temp}} °C</span>
-                                    <br/>
-                                    <span>Vento: {{f_wind}} m/sec</span>
-                                    <br/>
-                                    <span>Massima: {{f_temp_max}} °C</span>
-                                    <br/>
-                                    <span>Minima: {{f_temp_min}} °C</span>
-                                    <br/>
-                                </span>
-                             </div>
-                        </li>
-                        {{/each}}
-                    {{/if}}
-                </ul>
-            {{else}}
-            <button type="button" class="btn btn-info btn-lg btn-block showHours" aria-label="Left Align">
-                  <span class="lead">Previsioni orarie </span><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-            </button><br/><br/>
-            {{/if}}
-        </div>
-    </div>
+      <!-- Row -->
+      <div class="row">
+          <div class="col-md-12">
+              {{#if showCurrent}}
+                  <button type="button" class="btn btn-info btn-lg btn-block hideCurrent" aria-label="Left Align">
+                    <span class="lead">Meteo corrente </span><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                  </button>
+                  <br/><br/>
+                        <ul class="list-group">
+                          <a href="#" class="list-group-item active">
+                            {{ forecast.f_city }}
+                          </a>
+                          <li class="list-group-item">
+                              <div class="row">
+                                  <img src="icons/{{forecast.f_icon}}.png" alt="{{forecast.f_weather}}" class="col-xs-3 col-lg-1"	/>
+                                  <span class="col-xs-9 col-lg-11 description">{{forecast.f_weather}}</span>
+                              </div>
+                              <div class="row">
+                                  <span class="col-xs-3 col-lg-1"></span>
+                                  <span class="col-xs-9 col-lg-11">
+                                      <span>Nuvolosità: {{forecast.f_clouds}} %</span>
+                                      <br/>
+                                      <span>Umidità: {{forecast.f_humidity}} %</span>
+                                      <br/>
+                                      <span>Temperatura: {{forecast.f_temp}} °C</span>
+                                      <br/>
+                                      <span>Vento: {{forecast.f_wind}} m/sec</span>
+                                      <br/>
+                                      <span>Massima: {{forecast.f_temp_max}} °C</span>
+                                      <br/>
+                                      <span>Minima: {{forecast.f_temp_min}} °C</span>
+                                      <br/>
+                                      <br/>
+                                  </span>
+                              </div>
+                          </li>
+                         </ul>
+               {{else}}
+                  <button type="button" class="btn btn-info btn-lg btn-block showCurrent" aria-label="Left Align">
+                    <span class="lead">Meteo corrente </span><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                  </button> <br/><br/>
+              {{/if}}
+          </div>
+      </div>
+      <!-- /.row -->
+      <div class="row">
+          <div class="col-md-12">
+              {{#if showDaily}}
+                  <button type="button" class="btn btn-info btn-lg btn-block hideDaily" aria-label="Left Align">
+                    <span class="lead">Previsioni giornaliere </span><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                  </button>
+                  <br/><br/>
+                      <ul class="list-group">
+                          {{#each dailyForecasts}}
+                             <a href="#" class="list-group-item active">
+                                {{d_city}}, {{formatDay d_date}}
+                             </a>
+                             <li class="list-group-item">
+                                  <div class="row">
+                                      <img src="icons/{{d_icon}}.png" alt="{{d_weather}}" class="col-xs-3 col-lg-1" />
+                                      <span class="col-xs-9 col-lg-11 description">{{d_weather}}</span>
+                                  </div>
+                                  <div class="row">
+                                      <span class="col-xs-3 col-lg-1"></span>
+                                      <span class="col-xs-9 col-lg-11">
+                                          <span>Nuvolosità: {{d_clouds}} %</span>
+                                          <br/>
+                                          <span>Umidità: {{d_humidity}} %</span>
+                                          <br/>
+                                          <span>Temperatura: {{d_temp}} °C</span>
+                                          <br/>
+                                          <span>Vento: {{d_wind}} m/sec</span>
+                                          <br/>
+                                          <br/>
+                                      </span>
+                                  </div>
+                              </li>
+                             {{/each}}
+                      </ul>
+                  <br/>
+              {{else}}
+                  <button type="button" class="btn btn-info btn-lg btn-block showDaily" aria-label="Left Align">
+                    <span class="lead">Previsioni giornaliere </span><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                  </button> <br/><br/>
+              {{/if}}
+          </div>
+      </div>
+       <!-- /.row -->
+      <div class="row">
+          <div class="col-md-12">
+              {{#if showHours}}
+                  <button type="button" class="btn btn-info btn-lg btn-block hideHours" aria-label="Left Align">
+                    <span class="lead">Previsioni orarie </span><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                  </button>
+                  <br/><br/>
+                  <ul class="list-group">
+                         {{#each forecasts}}
+                         <a href="#" class="list-group-item active">
+                            {{f_city}}, {{formatTime f_date}}
+                         </a>
+                         <li class="list-group-item">
+                              <div class="row">
+                                  <img src="icons/{{f_icon}}.png" alt="{{f_weather}}" class="col-xs-3 col-lg-1"/>
+                                  <span class="col-xs-9 col-lg-11 description">{{f_weather}}</span>
+                              </div>
+                              <div class="row">
+                                  <span class="col-xs-3 col-lg-1"></span>
+                                  <span class="col-xs-9 col-lg-11">
+                                      <span>Nuvolosità: {{f_clouds}} %</span>
+                                      <br/>
+                                      <span>Umidità: {{f_humidity}} %</span>
+                                      <br/>
+                                      <span>Temperatura: {{f_temp}} °C</span>
+                                      <br/>
+                                      <span>Vento: {{f_wind}} m/sec</span>
+                                      <br/>
+                                      <span>Massima: {{f_temp_max}} °C</span>
+                                      <br/>
+                                      <span>Minima: {{f_temp_min}} °C</span>
+                                      <br/>
+                                  </span>
+                               </div>
+                          </li>
+                          {{/each}}
+                  </ul>
+              {{else}}
+              <button type="button" class="btn btn-info btn-lg btn-block showHours" aria-label="Left Align">
+                    <span class="lead">Previsioni orarie </span><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              </button><br/><br/>
+              {{/if}}
+          </div>
+      </div>
+    {{/if}}
 </template>

@@ -26,12 +26,12 @@ var cities = [
 ];
 
 Session.set('loading', true);
-Session.setPersistent('cities', cities); 
+Session.setPersistent('cities', cities);
 
-if(last_cities !== undefined)
-{
-   Session.setPersistent('cities', last_cities);  
-}
+// if(last_cities !== undefined)
+// {
+//    Session.setPersistent('cities', last_cities);
+// }
 
 Session.set('city', 'Torino,IT');
 searchWeather('Torino,IT');
@@ -62,137 +62,137 @@ UI.registerHelper('formatD', function(context, options) {
 
 Template.layout.helpers({
     loading: function(){
-      return Session.get('loading');  
+      return Session.get('loading');
     },
     cities: function(){
-      return Session.get('cities');  
+      return Session.get('cities');
     },
     city: function(){
         return Session.get('city').replace(',IT','').replace(',FR','').replace(',GR','').toUpperCase();
     },
-    dailyForecasts: function(){    
-        return Session.get('dailyForecasts');     
+    dailyForecasts: function(){
+        return Session.get('dailyForecasts');
     },
-    forecasts: function(){         
-        return Session.get('forecasts');     
+    forecasts: function(){
+        return Session.get('forecasts');
     },
-    forecast: function(){       
+    forecast: function(){
         return Session.get('forecast');
-    },   
+    },
     location: function(){
        return Session.get('location');
-    },   
+    },
     showHours: function(){
        return Session.get('showHours');
-    },   
+    },
     showDaily: function(){
        return Session.get('showDaily');
-    },  
+    },
     showCurrent: function(){
        return Session.get('showCurrent');
-    } 
+    }
 });
 
 Template.layout.events({
     'click .addCity': function(evt,tmpl){
         var city = tmpl.find('.newCity').value;
         var cities = Session.get('cities');
-           
-        if (city === '')  
+
+        if (city === '')
         {
-            Alerts.add('Nome città vuoto!'); 
-        }     
+            Alerts.add('Nome città vuoto!');
+        }
         else if(_.contains(cities, city) == false)
         {
             cities.unshift(city);
             Session.setPersistent('cities', cities);
-            
+
             tmpl.find('.newCity').value = '';
             tmpl.find('.cities').value = city;
-            
-            Session.set('city', city);   
+
+            Session.set('city', city);
             searchWeather(city);
-        }    
+        }
         else
         {
-            Alerts.add('Città già presente nella lista!'); 
-        }   
+            Alerts.add('Città già presente nella lista!');
+        }
     },
     'change .cities': function(evt,tmpl){
         var city = tmpl.find('.cities').value;
         Session.set('city', city);
-        
+
         searchWeather(city);
     },
-    'click .currentLocation':function(evt,tmpl){    
-        evt.preventDefault();         
+    'click .currentLocation':function(evt,tmpl){
+        evt.preventDefault();
         var location = Geolocation.currentLocation();
         if(location !== undefined)
-        {          
+        {
             Session.set('location', location);
-            HTTP.call("get", "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + location.coords.latitude + "&lon=" +   location.coords.longitude + "&addressdetails=1", 
-                function(error, result) { if (!error) {   
-                    if(result.data.address.city !== undefined)  
-                    {        
-                        var city = result.data.address.city + ',' + result.data.address.country_code;      
+            HTTP.call("get", "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + location.coords.latitude + "&lon=" +   location.coords.longitude + "&addressdetails=1",
+                function(error, result) { if (!error) {
+                    if(result.data.address.city !== undefined)
+                    {
+                        var city = result.data.address.city + ',' + result.data.address.country_code;
                         Session.set('city', city);
                         searchWeather(city);
-                    }  
-                    else if(result.data.address.town !== undefined)  
-                    {        
-                        var city = result.data.address.town + ',' + result.data.address.country_code;      
+                    }
+                    else if(result.data.address.town !== undefined)
+                    {
+                        var city = result.data.address.town + ',' + result.data.address.country_code;
                         Session.set('city', city);
                         searchWeather(city);
-                    }  
+                    }
                 }
-                else 
+                else
                 { throw new Meteor.Error("Error in reading location");
               }});
-        }      
+        }
     },
-    'click .showHours':function(evt,tmpl){    
+    'click .showHours':function(evt,tmpl){
         evt.preventDefault();
-        Session.set('showHours', true); 
+        Session.set('showHours', true);
     },
-    'click .showDaily':function(evt,tmpl){    
-        evt.preventDefault();         
-        Session.set('showDaily', true); 
-    },
-    'click .hideHours':function(evt,tmpl){    
-        evt.preventDefault();         
-        Session.set('showHours', false); 
-    },
-    'click .hideDaily':function(evt,tmpl){    
+    'click .showDaily':function(evt,tmpl){
         evt.preventDefault();
-        Session.set('showDaily', false);  
+        Session.set('showDaily', true);
     },
-    'click .currentWeather':function(evt,tmpl){    
+    'click .hideHours':function(evt,tmpl){
+        evt.preventDefault();
+        Session.set('showHours', false);
+    },
+    'click .hideDaily':function(evt,tmpl){
+        evt.preventDefault();
+        Session.set('showDaily', false);
+    },
+    'click .currentWeather':function(evt,tmpl){
         evt.preventDefault();
 
         var city= Session.get('city');
-        Session.set('city', city); 
+        Session.set('city', city);
     } ,
-    'click .hideCurrent':function(evt,tmpl){    
-        evt.preventDefault();         
-        Session.set('showCurrent', false); 
-    },
-    'click .showCurrent':function(evt,tmpl){    
+    'click .hideCurrent':function(evt,tmpl){
         evt.preventDefault();
-        Session.set('showCurrent', true);  
-    },            
+        Session.set('showCurrent', false);
+    },
+    'click .showCurrent':function(evt,tmpl){
+        evt.preventDefault();
+        Session.set('showCurrent', true);
+    },
 });
 
 
 
-function searchWeather(city) {   
+function searchWeather(city) {
     Session.set('loading', true);
-       
+
     Meteor.call('getWeather', city, function (err, results) {
         var l = JSON.parse(results.content);
         var forecast = new singleForecast(l.name, new Date(), l.weather[0].description, l.weather[0].icon, l.wind.speed, l.clouds.all, l.main.temp, l.main.temp_min, l.main.temp_max, l.main.humidity);
         Session.set('forecast', forecast);
     });
-        
+
     var array = [];
     Meteor.call('getDailyForecast', city, function (err, results) {
         var content = JSON.parse(results.content);
@@ -200,22 +200,22 @@ function searchWeather(city) {
            array.push(new dailyForecast(content.city.name, l.dt, l.weather[0].description, l.weather[0].icon, l.temp.day, l.clouds, l.humidity, l.speed));
         });
         Session.set('dailyForecasts', array);
-    });   
-            
+    });
+
     var array2 = [];
     Meteor.call('getForecast', city, function(err,results){
         var content = JSON.parse(results.content);
         _.each(content.list, function(l){
-           array2.push(new singleForecast(content.city.name, l.dt_txt, l.weather[0].description, l.weather[0].icon, l.wind.speed, l.clouds.all, l.main.temp, l.main.temp_min, l.main.temp_max, l.main.humidity));  
+           array2.push(new singleForecast(content.city.name, l.dt_txt, l.weather[0].description, l.weather[0].icon, l.wind.speed, l.clouds.all, l.main.temp, l.main.temp_min, l.main.temp_max, l.main.humidity));
         });
-                   
-        Session.set('forecasts', array2);  
-        Session.set('loading', false);  
-    });          
+
+        Session.set('forecasts', array2);
+        Session.set('loading', false);
+    });
 };
 
 function singleForecast(city, date, weather, icon, wind, clouds, temp, temp_min, temp_max, humidity){
-  var self = this;  
+  var self = this;
   self.f_city = city;
   self.f_date = date;
   self.f_weather = weather.toUpperCase();
@@ -229,8 +229,8 @@ function singleForecast(city, date, weather, icon, wind, clouds, temp, temp_min,
 };
 
 function dailyForecast(city, dt, weather, icon, temp, clouds, humidity, wind){
-  var self = this;  
-  
+  var self = this;
+
   var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
   d.setUTCSeconds(dt);
 

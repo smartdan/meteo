@@ -42,3 +42,26 @@ td{
   text-align: center;
 }
 
+.spinner{
+  /*display: inline-block;
+  margin: 20px 20px;*/
+  text-align: center;
+  font-weight: bold;
+
+  height: 300px;
+  display: -webkit-flex;
+  display:         flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+         justify-content: center;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  background-color: white;
+  width: 100%;
+}
